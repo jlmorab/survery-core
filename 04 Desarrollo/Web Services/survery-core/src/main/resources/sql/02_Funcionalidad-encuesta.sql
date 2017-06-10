@@ -43,7 +43,7 @@ CREATE TABLE cat_tipo_encuesta(
     FOREIGN 						KEY(i_tipo_encuesta_status) 
     REFERENCES 						sys_status_general(i_status_general)
 ) COMMENT 'Catálogo de tipos de encuesta' 
-ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf_unicode_ci;
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO cat_tipo_encuesta VALUES
 	(1, 1, 'Abierta'), 
@@ -95,7 +95,7 @@ CREATE TABLE cat_opcion_pregunta(
 	CONSTRAINT 						PK_opcion_pregunta 
 	PRIMARY 						KEY(i_opcion_pregunta), 
 	CONSTRAINT 						FK_opcion_pregunta_status 
-	FOREIGN 						KEY(i_opcion_status) 
+	FOREIGN 						KEY(i_opcion_pregunta_status) 
 	REFERENCES 						sys_status_general(i_status_general), 
 	CONSTRAINT 						FK_opcion_pregunta_pregunta 
 	FOREIGN 						KEY(i_opcion_pregunta_pregunta) 

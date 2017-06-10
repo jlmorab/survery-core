@@ -16,5 +16,5 @@ DROP DATABASE db_survery;
 CREATE DATABASE IF NOT EXISTS db_survery;
 
 -- Crea el usuario y asigna privilegios
-GRANT ALL PRIVILEGES ON infonavit.* TO 'user_survery'@'%' 			  IDENTIFIED BY 'usr_svry*2017' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON infonavit.* TO 'user_survery'@'localhost' IDENTIFIED BY 'usr_svry*2017' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON db_survery.* TO 'user_survery'@'%' 			IDENTIFIED BY 'usr_svry*2017' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON db_survery.* TO 'user_survery'@'localhost' 	IDENTIFIED BY 'usr_svry*2017' WITH GRANT OPTION;
