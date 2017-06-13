@@ -58,6 +58,8 @@ CREATE TABLE cat_encuesta(
     n_encuesta 						VARCHAR(100) 	COLLATE utf8_unicode_ci NOT NULL 	COMMENT 'Nombre', 
     CONSTRAINT 						PK_encuesta 
     PRIMARY 						KEY(i_encuesta), 
+    CONSTRAINT 						UN_encuesta 
+    UNIQUE 							(n_encuesta),
     CONSTRAINT 						FK_encuesta_status 
     FOREIGN 						KEY(i_encuesta_status) 
     REFERENCES 						sys_status_general(i_status_general), 
@@ -76,6 +78,8 @@ CREATE TABLE cat_pregunta(
 	n_pregunta 						VARCHAR(255) 	COLLATE utf8_unicode_ci NOT NULL 	COMMENT 'Pregunta', 
     CONSTRAINT 						PK_pregunta 
     PRIMARY 						KEY(i_pregunta), 
+    CONSTRAINT 						UN_pregunta 
+    UNIQUE 							(i_pregunta_encuesta, n_pregunta),
     CONSTRAINT 						FK_pregunta_status 
     FOREIGN 						KEY(i_pregunta_status) 
     REFERENCES 						sys_status_general(i_status_general), 
@@ -94,6 +98,8 @@ CREATE TABLE cat_opcion_pregunta(
 	f_opcion_pregunta_correcto 		TINYINT(1) 		UNSIGNED NOT NULL DEFAULT 0 		COMMENT 'Correcto',
 	CONSTRAINT 						PK_opcion_pregunta 
 	PRIMARY 						KEY(i_opcion_pregunta), 
+	CONSTRAINT 						UN_opcion_pregunta 
+	UNIQUE 							(i_opcion_pregunta_pregunta, n_opcion_pregunta),
 	CONSTRAINT 						FK_opcion_pregunta_status 
 	FOREIGN 						KEY(i_opcion_pregunta_status) 
 	REFERENCES 						sys_status_general(i_status_general), 
