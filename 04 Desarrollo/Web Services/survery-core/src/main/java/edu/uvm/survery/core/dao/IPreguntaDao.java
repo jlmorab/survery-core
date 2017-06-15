@@ -18,4 +18,6 @@ public interface IPreguntaDao {
 		throws IllegalArgumentException;
 	public abstract List<Pregunta> all(Integer status, Integer survery)
 		throws IllegalArgumentException;
+	public abstract Integer consecutiveOrder(Integer survery) 
+		throws IllegalArgumentException;
 }

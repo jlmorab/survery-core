@@ -132,5 +132,28 @@ public class PreguntaDao implements IPreguntaDao {
 			throw ex;
 		}//end try
 	}//end all()
+	
+	public Integer consecutiveOrder(Integer survery) throws IllegalArgumentException {
+		String method = "order";
+		logger.trace("Dao > " + method);
+		
+		try {
+			String query = "SELECT MAX(" + prefix + ".q_pregunta_orden) " +
+						   genericTable + 
+						   "WHERE " + prefix + ".i_pregunta_encuesta.i_encuesta = :survery";
+			Query q = entityManager.createQuery(query);
+			q.setParameter("survery", survery);
+			Integer result = (Integer) q.getSingleResult();
+			if(result == null) {
+				result = 1;
+			} else {
+				result++;
+			}//end if
+			return result;
+		} catch(RuntimeException ex) {
+			logger.error(method + ":" + ex.getMessage());
+			throw ex;
+		}
+	}
 
 }

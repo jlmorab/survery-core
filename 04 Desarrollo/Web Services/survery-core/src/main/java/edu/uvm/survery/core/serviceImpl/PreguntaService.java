@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.uvm.survery.core.dao.IPreguntaDao;
+import edu.uvm.survery.core.extjs.ExtData;
+import edu.uvm.survery.core.extjs.ExtData.FlashType;
+import edu.uvm.survery.core.model.Encuesta;
 import edu.uvm.survery.core.model.Pregunta;
+import edu.uvm.survery.core.model.StatusGeneral;
+import edu.uvm.survery.core.service.IEncuestaService;
 import edu.uvm.survery.core.service.IPreguntaService;
+import edu.uvm.survery.core.service.IStatusGeneralService;
 
 @Service
 public class PreguntaService implements IPreguntaService {
@@ -22,6 +28,12 @@ public class PreguntaService implements IPreguntaService {
 	
 	@Autowired
 	private IPreguntaDao preguntaDao;
+	
+	@Autowired
+	private IStatusGeneralService statusGeneralService;
+	
+	@Autowired
+	private IEncuestaService encuestaService;
 
 	@Transactional
 	public Pregunta addAndUpdate(Pregunta entity) throws EntityExistsException, IllegalArgumentException, TransactionRequiredException {
@@ -57,5 +69,36 @@ public class PreguntaService implements IPreguntaService {
 		logger.trace("Service > all");
 		return preguntaDao.all(status, survery);
 	}//end all()
+	
+	public Integer consecutiveOrder(Integer survery) throws IllegalArgumentException {
+		logger.trace("Service > order");
+		return preguntaDao.consecutiveOrder(survery);
+	}
+	
+	public Pregunta create(ExtData response, Integer surveryId, String name) throws IllegalArgumentException {
+		String method = "create";
+		logger.trace("Service > " + method);
+		
+		Pregunta result = null;
+		try {
+			Encuesta survery = encuestaService.findById(surveryId);
+			Pregunta entity = preguntaDao.findByDefinition(surveryId, name);
+			
+			if(entity == null) {
+				Integer order = this.consecutiveOrder(surveryId);
+				entity = new Pregunta(statusGeneralService.findById(StatusGeneral.VIGENTE), survery, order, name);
+				result = preguntaDao.addAndUpdate(entity);
+			} else {
+				String msg = "Pregunta ya existe.";
+				response.addFlash(FlashType.ERROR, msg);
+				logger.error(method + ": " + msg);
+			}//end if
+		} catch(Exception ex) {
+			logger.error(method + ": " + ex.getMessage());
+			response.addFlash(FlashType.ERROR, ex.getMessage());
+		}//end try
+		return result;
+		
+	}//end create()
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.TransactionRequiredException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.uvm.survery.core.extjs.ExtData;
 import edu.uvm.survery.core.model.Encuesta;
 
 @Transactional
@@ -23,5 +24,7 @@ public interface IEncuestaService {
 	public abstract List<Encuesta> all(Integer status) 
 			throws IllegalArgumentException;
 	public abstract List<Encuesta> all(Integer status, Integer type) 
+		throws IllegalArgumentException;
+	public abstract Encuesta create(ExtData response, Integer typeId, String name) 
 		throws IllegalArgumentException;
 }

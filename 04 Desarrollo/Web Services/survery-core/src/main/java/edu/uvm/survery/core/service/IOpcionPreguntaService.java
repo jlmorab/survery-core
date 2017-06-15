@@ -7,6 +7,7 @@ import javax.persistence.TransactionRequiredException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.uvm.survery.core.extjs.ExtData;
 import edu.uvm.survery.core.model.OpcionPregunta;
 
 @Transactional
@@ -25,5 +26,7 @@ public interface IOpcionPreguntaService {
 	public abstract List<OpcionPregunta> all(Integer status, Integer question) 
 		throws IllegalArgumentException;
 	public abstract List<OpcionPregunta> all(Integer status, Integer question, Integer isCorrect) 
+		throws IllegalArgumentException;
+	public abstract OpcionPregunta create(ExtData response, Integer questionId, String name) 
 		throws IllegalArgumentException;
 }

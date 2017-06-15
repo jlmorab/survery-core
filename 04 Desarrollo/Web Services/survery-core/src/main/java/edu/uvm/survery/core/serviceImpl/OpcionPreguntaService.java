@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.uvm.survery.core.dao.IOpcionPreguntaDao;
+import edu.uvm.survery.core.extjs.ExtData;
+import edu.uvm.survery.core.extjs.ExtData.FlashType;
 import edu.uvm.survery.core.model.OpcionPregunta;
+import edu.uvm.survery.core.model.Pregunta;
+import edu.uvm.survery.core.model.StatusGeneral;
 import edu.uvm.survery.core.service.IOpcionPreguntaService;
+import edu.uvm.survery.core.service.IPreguntaService;
+import edu.uvm.survery.core.service.IStatusGeneralService;
 
 @Service
 public class OpcionPreguntaService implements IOpcionPreguntaService {
@@ -22,6 +28,12 @@ public class OpcionPreguntaService implements IOpcionPreguntaService {
 	
 	@Autowired
 	private IOpcionPreguntaDao opcionPreguntaDao;
+	
+	@Autowired
+	private IStatusGeneralService statusGeneralService;
+	
+	@Autowired
+	private IPreguntaService preguntaService;
 	
 	@Transactional
 	public OpcionPregunta addAndUpdate(OpcionPregunta entity) throws EntityExistsException, IllegalArgumentException, TransactionRequiredException {
@@ -62,4 +74,28 @@ public class OpcionPreguntaService implements IOpcionPreguntaService {
 		return opcionPreguntaDao.all(status, question, isCorrect);
 	}//end all()
 
+	public OpcionPregunta create(ExtData response, Integer questionId, String name) throws IllegalArgumentException {
+		String method = "create";
+		logger.trace("Service > " + method);
+		
+		OpcionPregunta result = null;
+		try {
+			Pregunta question = preguntaService.findById(questionId);
+			OpcionPregunta entity = opcionPreguntaDao.findByDefinition(questionId, name);
+			
+			if(entity == null) {
+				entity = new OpcionPregunta(statusGeneralService.findById(StatusGeneral.VIGENTE), question, name);
+				result = opcionPreguntaDao.addAndUpdate(entity);
+			} else {
+				String msg = "Opción de pregunta ya existe.";
+				response.addFlash(FlashType.ERROR, msg);
+				logger.error(method + ": " + msg);
+			}//end if
+		} catch(Exception ex) {
+			logger.error(method + ": " + ex.getMessage());
+			response.addFlash(FlashType.ERROR, ex.getMessage());
+		}//end try
+		return result;
+		
+	}//end create()
 }
