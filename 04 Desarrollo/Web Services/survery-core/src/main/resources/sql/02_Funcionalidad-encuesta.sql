@@ -4,6 +4,11 @@ Script de creación de tablas para la funcionalidad de Encuestas
 -- MODIFICACIONES
 1. Crea tabla catalogo de estatus de registros
 	1.1 Crea registros iniciales
+2. Crea tabla catálogo de tipos de encuesta
+	2.1 Crea registros iniciales
+3. Crea tabla catálogo de encuestas
+4. Crea tabla catálogo de preguntas
+5. Crea tabña catálogo de opciones de pregunta
 
 -- DESHACER
 use db_survery;
