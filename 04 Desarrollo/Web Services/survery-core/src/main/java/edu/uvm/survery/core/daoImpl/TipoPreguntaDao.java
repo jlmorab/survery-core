@@ -11,27 +11,27 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
-import edu.uvm.survery.core.dao.ITipoEncuestaDao;
-import edu.uvm.survery.core.model.TipoEncuesta;
+import edu.uvm.survery.core.dao.ITipoPreguntaDao;
+import edu.uvm.survery.core.model.TipoPregunta;
 
 @Repository
-public class TipoEncuestaDao implements ITipoEncuestaDao {
+public class TipoPreguntaDao implements ITipoPreguntaDao {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	private final String prefix 		= "ten", 
-						 model 			= "TipoEncuesta", 
+	private final String prefix 		= "tep", 
+						 model 			= "TipoPregunta", 
 						 genericTable 	= "FROM " + model + " " + prefix + " ";
 	
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	private EntityManager entityManager;
 	
-	public TipoEncuesta findById(Integer id) throws IllegalArgumentException {
+	public TipoPregunta findById(Integer id) throws IllegalArgumentException {
 		String method = "findById";
 		logger.trace("Dao > " + method);
 		
 		try {
-			return entityManager.find(TipoEncuesta.class, id);
+			return entityManager.find(TipoPregunta.class, id);
 		} catch(RuntimeException ex) {
 			logger.error(method + ": " + ex.getMessage());
 			throw ex;
@@ -39,13 +39,13 @@ public class TipoEncuestaDao implements ITipoEncuestaDao {
 	}//end findById()
 
 	@SuppressWarnings("unchecked")
-	public List<TipoEncuesta> all(Integer status) throws IllegalArgumentException {
+	public List<TipoPregunta> all(Integer status) throws IllegalArgumentException {
 		String method = "all";
 		logger.trace("Dao > " + method);
 		
 		try {
 			String query = genericTable + 
-						   (status != null ? "WHERE i_tipo_encuesta_status.i_status_general = :status" : "");
+						   (status != null ? "WHERE i_tipo_pregunta_status.i_status_general = :status" : "");
 			
 			Query q = entityManager.createQuery(query);
 			if(status != null) { q.setParameter("status", status); }

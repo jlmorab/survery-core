@@ -48,7 +48,6 @@ public class EncuestaDao implements IEncuestaDao {
 				return entity;
 			} else {
 				entity.setI_encuesta_status(statusGeneralService.findById(StatusGeneral.VIGENTE));
-				entity.setI_encuesta_tipo_encuesta(entity.getI_encuesta_tipo_encuesta());
 				return entityManager.merge(entity);
 			}//end if
 		} catch(RuntimeException ex) {
@@ -110,19 +109,15 @@ public class EncuestaDao implements IEncuestaDao {
 	}//end findByName()
 
 	@SuppressWarnings("unchecked")
-	public List<Encuesta> all(Integer status, Integer type) throws IllegalArgumentException {
+	public List<Encuesta> all(Integer status) throws IllegalArgumentException {
 		String method = "all";
 		logger.trace("Dao > " + method);
 		
-		try {
-			String condition = (status != null ? prefix + ".i_encuesta_status.i_status_general = :status " : ""); 
-				   condition = condition + (condition.length() > 0 ? " AND " : "") + (type != null ? prefix + ".i_encuesta_tipo_encuesta = :type" : "");
-			
+		try { 
 			String query = genericTable + 
-						   (condition.length() > 0 ? "WHERE " + condition : "");
+						   (status != null ? "WHERE " + prefix + ".i_encuesta_status.i_status_general = :status " : "");
 			Query q = entityManager.createQuery(query);
 			if(status != null) { q.setParameter("status", status); }
-			if(type != null) { q.setParameter("type", type); }
 			return q.getResultList();
 		} catch(RuntimeException ex) {
 			logger.error(method + ": " + ex.getMessage());

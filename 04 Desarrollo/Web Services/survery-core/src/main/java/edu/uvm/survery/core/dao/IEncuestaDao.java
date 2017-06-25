@@ -16,6 +16,6 @@ public interface IEncuestaDao {
 		throws IllegalArgumentException;
 	public abstract Encuesta findByName(String name) 
 		throws IllegalArgumentException;
-	public abstract List<Encuesta> all(Integer status, Integer type) 
+	public abstract List<Encuesta> all(Integer status) 
 		throws IllegalArgumentException;
 }

@@ -23,8 +23,6 @@ public interface IEncuestaService {
 	public abstract List<Encuesta> all();
 	public abstract List<Encuesta> all(Integer status) 
 			throws IllegalArgumentException;
-	public abstract List<Encuesta> all(Integer status, Integer type) 
-		throws IllegalArgumentException;
-	public abstract Encuesta create(ExtData response, Integer typeId, String name) 
+	public abstract Encuesta create(ExtData response, String name) 
 		throws IllegalArgumentException;
 }

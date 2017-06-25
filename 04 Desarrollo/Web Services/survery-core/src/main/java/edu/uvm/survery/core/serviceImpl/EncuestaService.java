@@ -15,10 +15,8 @@ import edu.uvm.survery.core.extjs.ExtData;
 import edu.uvm.survery.core.extjs.ExtData.FlashType;
 import edu.uvm.survery.core.model.Encuesta;
 import edu.uvm.survery.core.model.StatusGeneral;
-import edu.uvm.survery.core.model.TipoEncuesta;
 import edu.uvm.survery.core.service.IEncuestaService;
 import edu.uvm.survery.core.service.IStatusGeneralService;
-import edu.uvm.survery.core.service.ITipoEncuestaService;
 
 @Service
 public class EncuestaService implements IEncuestaService {
@@ -30,9 +28,6 @@ public class EncuestaService implements IEncuestaService {
 	
 	@Autowired
 	private IStatusGeneralService statusGeneralService;
-	
-	@Autowired
-	private ITipoEncuestaService tipoEncuestaService;
 	
 	public Encuesta addAndUpdate(Encuesta entity) throws EntityExistsException, IllegalArgumentException, TransactionRequiredException {
 		logger.trace("Service > addAndUpdate");
@@ -55,29 +50,24 @@ public class EncuestaService implements IEncuestaService {
 	}//end findByName()
 
 	public List<Encuesta> all() {
-		return all(null, null);
+		return all(null);
 	}//end all()
 
 	public List<Encuesta> all(Integer status) throws IllegalArgumentException {
-		return all(status, null);
-	}//end all()
-
-	public List<Encuesta> all(Integer status, Integer type) throws IllegalArgumentException {
 		logger.trace("Service > all");
-		return encuestaDao.all(status, type);
+		return encuestaDao.all(status);
 	}//end all()
 	
-	public Encuesta create(ExtData response, Integer typeId, String name) throws IllegalArgumentException {
+	public Encuesta create(ExtData response, String name) throws IllegalArgumentException {
 		String method = "create";
 		logger.trace("Service > " + method);
 		
 		Encuesta result = null;
 		try {
-			TipoEncuesta type = tipoEncuestaService.findById(typeId);
 			Encuesta entity = encuestaDao.findByName(name);
 			
 			if(entity == null) {
-				entity = new Encuesta(statusGeneralService.findById(StatusGeneral.VIGENTE), type, name);
+				entity = new Encuesta(statusGeneralService.findById(StatusGeneral.VIGENTE), name);
 				result = encuestaDao.addAndSave(entity);
 			} else {
 				String msg = "Encuesta ya existe.";

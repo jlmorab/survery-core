@@ -23,11 +23,6 @@ public class Encuesta implements Serializable {
 	@JoinColumn(name="i_encuesta_status")
 	private StatusGeneral 	i_encuesta_status;
 
-	//bi-directional many-to-one association to TipoEncuesta
-	@ManyToOne
-	@JoinColumn(name="i_encuesta_tipo_encuesta")
-	private TipoEncuesta 	i_encuesta_tipo_encuesta;
-
 	@Column(name="n_encuesta")
 	private String 			n_encuesta;
 	
@@ -35,9 +30,8 @@ public class Encuesta implements Serializable {
 	public Encuesta() {}
 
 
-	public Encuesta(StatusGeneral i_encuesta_status, TipoEncuesta i_encuesta_tipo_encuesta, String n_encuesta) {
+	public Encuesta(StatusGeneral i_encuesta_status, String n_encuesta) {
 		this.i_encuesta_status 			= i_encuesta_status;
-		this.i_encuesta_tipo_encuesta 	= i_encuesta_tipo_encuesta;
 		this.n_encuesta 				= n_encuesta;
 	}
 
@@ -57,15 +51,7 @@ public class Encuesta implements Serializable {
 	public void setI_encuesta_status(StatusGeneral i_encuesta_status) {
 		this.i_encuesta_status = i_encuesta_status;
 	}
-
-	public TipoEncuesta getI_encuesta_tipo_encuesta() {
-		return i_encuesta_tipo_encuesta;
-	}
-
-	public void setI_encuesta_tipo_encuesta(TipoEncuesta i_encuesta_tipo_encuesta) {
-		this.i_encuesta_tipo_encuesta = i_encuesta_tipo_encuesta;
-	}
-
+	
 	public String getN_encuesta() {
 		return n_encuesta;
 	}
@@ -81,7 +67,6 @@ public class Encuesta implements Serializable {
 		int result = 1;
 		result = prime * result + ((i_encuesta == null) ? 0 : i_encuesta.hashCode());
 		result = prime * result + ((i_encuesta_status == null) ? 0 : i_encuesta_status.hashCode());
-		result = prime * result + ((i_encuesta_tipo_encuesta == null) ? 0 : i_encuesta_tipo_encuesta.hashCode());
 		result = prime * result + ((n_encuesta == null) ? 0 : n_encuesta.hashCode());
 		return result;
 	}
@@ -105,11 +90,6 @@ public class Encuesta implements Serializable {
 				return false;
 		} else if (!i_encuesta_status.equals(other.i_encuesta_status))
 			return false;
-		if (i_encuesta_tipo_encuesta == null) {
-			if (other.i_encuesta_tipo_encuesta != null)
-				return false;
-		} else if (!i_encuesta_tipo_encuesta.equals(other.i_encuesta_tipo_encuesta))
-			return false;
 		if (n_encuesta == null) {
 			if (other.n_encuesta != null)
 				return false;
@@ -120,7 +100,8 @@ public class Encuesta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Encuesta [i_encuesta=" + i_encuesta + ", i_encuesta_status=" + i_encuesta_status
-				+ ", i_encuesta_tipo_encuesta=" + i_encuesta_tipo_encuesta + ", n_encuesta=" + n_encuesta + "]";
+		return "Encuesta [i_encuesta=" + i_encuesta + ", i_encuesta_status=" + i_encuesta_status + ", n_encuesta="
+				+ n_encuesta + "]";
 	}
+	
 }

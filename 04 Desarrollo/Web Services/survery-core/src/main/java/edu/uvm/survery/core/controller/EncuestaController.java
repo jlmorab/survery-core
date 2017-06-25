@@ -38,8 +38,7 @@ public class EncuestaController {
 	 */
 	@RequestMapping(value="index.action", method=RequestMethod.GET)
 	public ExtData indexEncuesta(
-			@RequestParam(value="status", required=false) Integer status, 
-			@RequestParam(value="type", required=false) Integer type) throws ServletException {
+			@RequestParam(value="status", required=false) Integer status) throws ServletException {
 		
 		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
 		String method = "indexEncuesta";
@@ -47,7 +46,7 @@ public class EncuestaController {
 		
 		try {
 			status = (status != null ? status : StatusGeneral.VIGENTE);
-			List<Encuesta> surverys = encuestaService.all(status, type);
+			List<Encuesta> surverys = encuestaService.all(status);
 			data.put("models", surverys);
 			
 			return ExtUtils.loadResponse(response, data);
@@ -103,7 +102,6 @@ public class EncuestaController {
 	 */
 	@RequestMapping(value="create.action", method=RequestMethod.POST)
 	public ExtData createEncuesta(
-			@RequestParam(value="type") Integer type, 
 			@RequestParam(name="name") String name) throws ServletException {
 		
 		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
@@ -111,7 +109,7 @@ public class EncuestaController {
 		logger.trace("Controller > " + method);
 		
 		try {
-			Encuesta survery = encuestaService.create(response, type, name);
+			Encuesta survery = encuestaService.create(response, name);
 			data.put("model", survery);
 			
 			return ExtUtils.loadResponse(response, data);

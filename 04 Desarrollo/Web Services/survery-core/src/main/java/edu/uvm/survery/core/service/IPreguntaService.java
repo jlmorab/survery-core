@@ -25,7 +25,7 @@ public interface IPreguntaService {
 		throws IllegalArgumentException;
 	public abstract List<Pregunta> all(Integer status, Integer survery) 
 		throws IllegalArgumentException;
-	public abstract Pregunta create(ExtData response, Integer surveryId, String name) 
+	public abstract Pregunta create(ExtData response, Integer surveryId, Integer typeId, String name) 
 		throws IllegalArgumentException;
 	public abstract Integer consecutiveOrder(Integer survery) 
 		throws IllegalArgumentException;

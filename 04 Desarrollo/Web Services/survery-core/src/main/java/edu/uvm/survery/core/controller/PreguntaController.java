@@ -100,6 +100,7 @@ public class PreguntaController {
 	/**
 	 * Registra una pregunta
 	 * @param survery 		Id de encuesta
+	 * @param type 			Id de tipo de pregunta
 	 * @param name			Nombre de pregunta
 	 * @return ExtData 		data: model |> Modelo de pregunta
 	 * @throws ServletException
@@ -107,6 +108,7 @@ public class PreguntaController {
 	@RequestMapping(value="create.action", method=RequestMethod.POST)
 	public ExtData createPregunta(
 			@RequestParam(value="survery") Integer survery, 
+			@RequestParam(value="type") Integer type,
 			@RequestParam(value="name") String name) throws ServletException {
 		
 		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
@@ -114,7 +116,7 @@ public class PreguntaController {
 		logger.trace("Controller > " + method);
 		
 		try {
-			Pregunta question = preguntaService.create(response, survery, name);
+			Pregunta question = preguntaService.create(response, survery, type, name);
 			data.put("model", question);
 			
 			return ExtUtils.loadResponse(response, data);

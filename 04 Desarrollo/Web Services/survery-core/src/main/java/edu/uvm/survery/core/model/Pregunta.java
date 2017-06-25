@@ -40,6 +40,11 @@ public class Pregunta implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="i_pregunta_encuesta")
 	private Encuesta 		i_pregunta_encuesta;
+	
+	//bi-directional many-to-one association to TipoPregunta
+	@ManyToOne
+	@JoinColumn(name="i_pregunta_tipo_pregunta")
+	private TipoPregunta	i_pregunta_tipo_pregunta;
 
 	@Column(name="q_pregunta_orden")
 	private Integer 		q_pregunta_orden;
@@ -50,11 +55,12 @@ public class Pregunta implements Serializable {
 	
 	public Pregunta() {}
 
-	public Pregunta(StatusGeneral i_pregunta_status, Encuesta i_pregunta_encuesta, Integer q_pregunta_orden, String n_pregunta) {
-		this.i_pregunta_status 		= i_pregunta_status;
-		this.i_pregunta_encuesta 	= i_pregunta_encuesta;
-		this.q_pregunta_orden 		= q_pregunta_orden;
-		this.n_pregunta 			= n_pregunta;
+	public Pregunta(StatusGeneral i_pregunta_status, Encuesta i_pregunta_encuesta, TipoPregunta i_pregunta_tipo_pregunta, Integer q_pregunta_orden, String n_pregunta) {
+		this.i_pregunta_status 			= i_pregunta_status;
+		this.i_pregunta_encuesta 		= i_pregunta_encuesta;
+		this.i_pregunta_tipo_pregunta 	= i_pregunta_tipo_pregunta;
+		this.q_pregunta_orden 			= q_pregunta_orden;
+		this.n_pregunta 				= n_pregunta;
 	}
 
 	
@@ -81,6 +87,14 @@ public class Pregunta implements Serializable {
 	public void setI_pregunta_encuesta(Encuesta i_pregunta_encuesta) {
 		this.i_pregunta_encuesta = i_pregunta_encuesta;
 	}
+	
+	public TipoPregunta getI_pregunta_tipo_pregunta() {
+		return i_pregunta_tipo_pregunta;
+	}
+
+	public void setI_pregunta_tipo_pregunta(TipoPregunta i_pregunta_tipo_pregunta) {
+		this.i_pregunta_tipo_pregunta = i_pregunta_tipo_pregunta;
+	}
 
 	public Integer getQ_pregunta_orden() {
 		return q_pregunta_orden;
@@ -106,6 +120,7 @@ public class Pregunta implements Serializable {
 		result = prime * result + ((i_pregunta == null) ? 0 : i_pregunta.hashCode());
 		result = prime * result + ((i_pregunta_encuesta == null) ? 0 : i_pregunta_encuesta.hashCode());
 		result = prime * result + ((i_pregunta_status == null) ? 0 : i_pregunta_status.hashCode());
+		result = prime * result + ((i_pregunta_tipo_pregunta == null) ? 0 : i_pregunta_tipo_pregunta.hashCode());
 		result = prime * result + ((n_pregunta == null) ? 0 : n_pregunta.hashCode());
 		result = prime * result + ((q_pregunta_orden == null) ? 0 : q_pregunta_orden.hashCode());
 		return result;
@@ -135,6 +150,11 @@ public class Pregunta implements Serializable {
 				return false;
 		} else if (!i_pregunta_status.equals(other.i_pregunta_status))
 			return false;
+		if (i_pregunta_tipo_pregunta == null) {
+			if (other.i_pregunta_tipo_pregunta != null)
+				return false;
+		} else if (!i_pregunta_tipo_pregunta.equals(other.i_pregunta_tipo_pregunta))
+			return false;
 		if (n_pregunta == null) {
 			if (other.n_pregunta != null)
 				return false;
@@ -151,7 +171,8 @@ public class Pregunta implements Serializable {
 	@Override
 	public String toString() {
 		return "Pregunta [i_pregunta=" + i_pregunta + ", i_pregunta_status=" + i_pregunta_status
-				+ ", i_pregunta_encuesta=" + i_pregunta_encuesta + ", q_pregunta_orden=" + q_pregunta_orden
-				+ ", n_pregunta=" + n_pregunta + "]";
+				+ ", i_pregunta_encuesta=" + i_pregunta_encuesta + ", i_pregunta_tipo_pregunta="
+				+ i_pregunta_tipo_pregunta + ", q_pregunta_orden=" + q_pregunta_orden + ", n_pregunta=" + n_pregunta
+				+ "]";
 	}
 }

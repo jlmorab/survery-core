@@ -17,9 +17,11 @@ import edu.uvm.survery.core.extjs.ExtData.FlashType;
 import edu.uvm.survery.core.model.Encuesta;
 import edu.uvm.survery.core.model.Pregunta;
 import edu.uvm.survery.core.model.StatusGeneral;
+import edu.uvm.survery.core.model.TipoPregunta;
 import edu.uvm.survery.core.service.IEncuestaService;
 import edu.uvm.survery.core.service.IPreguntaService;
 import edu.uvm.survery.core.service.IStatusGeneralService;
+import edu.uvm.survery.core.service.ITipoPreguntaService;
 
 @Service
 public class PreguntaService implements IPreguntaService {
@@ -34,6 +36,9 @@ public class PreguntaService implements IPreguntaService {
 	
 	@Autowired
 	private IEncuestaService encuestaService;
+	
+	@Autowired
+	private ITipoPreguntaService tipoPreguntaService;
 
 	@Transactional
 	public Pregunta addAndUpdate(Pregunta entity) throws EntityExistsException, IllegalArgumentException, TransactionRequiredException {
@@ -75,18 +80,19 @@ public class PreguntaService implements IPreguntaService {
 		return preguntaDao.consecutiveOrder(survery);
 	}
 	
-	public Pregunta create(ExtData response, Integer surveryId, String name) throws IllegalArgumentException {
+	public Pregunta create(ExtData response, Integer surveryId, Integer typeId, String name) throws IllegalArgumentException {
 		String method = "create";
 		logger.trace("Service > " + method);
 		
 		Pregunta result = null;
 		try {
-			Encuesta survery = encuestaService.findById(surveryId);
-			Pregunta entity = preguntaDao.findByDefinition(surveryId, name);
+			Encuesta survery 	= encuestaService.findById(surveryId);
+			TipoPregunta type 	= tipoPreguntaService.findById(typeId);
+			Pregunta entity 	= preguntaDao.findByDefinition(surveryId, name);
 			
 			if(entity == null) {
 				Integer order = this.consecutiveOrder(surveryId);
-				entity = new Pregunta(statusGeneralService.findById(StatusGeneral.VIGENTE), survery, order, name);
+				entity = new Pregunta(statusGeneralService.findById(StatusGeneral.VIGENTE), survery, type, order, name);
 				result = preguntaDao.addAndUpdate(entity);
 			} else {
 				String msg = "Pregunta ya existe.";
