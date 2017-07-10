@@ -94,6 +94,33 @@ public class EncuestaController {
 	}//end viewEncuesta()
 	
 	/**
+	 * Determina si una encuesta ya esta registrada
+	 * @param name 			Nombre de la Encuesta
+	 * @return ExtData 		data: exist 	|> True|False
+	 * 							  model 	|> Modelo de Encuesta
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="exist.action", method=RequestMethod.GET)
+	public ExtData existEncuesta(
+			@RequestParam(value="name") String name) throws ServletException {
+		
+		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
+		String method = "existEncuesta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			Encuesta survery = encuestaService.findByName(name);
+			data.put("exist", survery != null ? true : false );
+			data.put("model", survery);
+			
+			return ExtUtils.loadResponse(response, data);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end existEncuesta()
+	
+	/**
 	 * Registra una encuesta
 	 * @param type 			Id de tipo de encuesta
 	 * @param name			Nombre de encuesta
@@ -118,5 +145,37 @@ public class EncuestaController {
 		}//end try
 		
 	}//end createEncuesta()
+	
+	/**
+	 * Elimina una encuesta
+	 * @param id 			Id de Encuesta
+	 * @return	ExtData 
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="delete.action", method=RequestMethod.POST)
+	public ExtData deleteEncuesta(
+			@RequestParam(value="id") Integer id) throws ServletException {
+		
+		ExtData response = new ExtData();
+		String method = "deleteEncuesta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			Encuesta survery = encuestaService.findById(id);
+			
+			if(survery != null) {
+				encuestaService.delete(survery);
+			} else {
+				String msg = "Encuesta(" + id + ") no fue localizada.";
+				logger.error(method + ": " + msg);
+				return ExtUtils.returnException(response, method, msg);
+			}//end if
+			
+			return ExtUtils.loadResponse(response);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end deleteEncuesta()
 	
 }

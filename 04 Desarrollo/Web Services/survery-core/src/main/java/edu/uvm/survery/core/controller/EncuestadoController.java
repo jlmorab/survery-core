@@ -1,9 +1,7 @@
 package edu.uvm.survery.core.controller;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -36,6 +34,16 @@ public class EncuestadoController {
 	@Autowired
 	private IRespuestaService respuestaService;
 	
+	/**
+	 * Registra un encuestado y sus respuestas de encuesta
+	 * @param survery 		Id de Encuesta
+	 * @param contact 		Nombre de contacto
+	 * @param email			Email
+	 * @param date 			Fecha de realización de la encuesta
+	 * @param answers 		Modelos de Respuesta
+	 * @return ExtData
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="register-respondent.action", method=RequestMethod.POST)
 	public ExtData registerRespondentEncuestado(
 			@RequestParam(value="survery") Integer survery, 
@@ -44,7 +52,7 @@ public class EncuestadoController {
 			@RequestParam(value="date") Date date, 
 			@RequestParam(value="answers") List<Respuesta> answers) throws ServletException {
 		
-		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
+		ExtData response = new ExtData();
 		String method = "registerRespondentEncuestado";
 		logger.trace("Controller > " + method);
 		
@@ -71,7 +79,7 @@ public class EncuestadoController {
 				logger.error(method + ": " + msg);
 			}//end if
 			
-			return ExtUtils.loadResponse(response, data);
+			return ExtUtils.loadResponse(response);
 		} catch(Exception ex) {
 			return ExtUtils.returnException(response, method, ex.getMessage());
 		}//end try

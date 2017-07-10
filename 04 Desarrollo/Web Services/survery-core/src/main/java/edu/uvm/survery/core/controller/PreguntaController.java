@@ -98,6 +98,35 @@ public class PreguntaController {
 	}//end viewPregunta()
 	
 	/**
+	 * Determina si una pregunta existe
+	 * @param survery 		Id de Encuesta
+	 * @param name 			Nombre de pregunta
+	 * @return ExtData 		data: exist		|> True|False
+	 * 							  model 	|> Modelo de Pregunta
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="exist.action", method=RequestMethod.GET)
+	public ExtData existPregunta(
+			@RequestParam(value="survery") Integer survery, 
+			@RequestParam(value="name") String name) throws ServletException {
+		
+		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
+		String method = "existPregunta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			Pregunta question = preguntaService.findByDefinition(survery, name);
+			data.put("exist", question != null ? true : false);
+			data.put("model", question);
+			
+			return ExtUtils.loadResponse(response, data);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end existPregunta()
+	
+	/**
 	 * Registra una pregunta
 	 * @param survery 		Id de encuesta
 	 * @param type 			Id de tipo de pregunta
@@ -125,5 +154,37 @@ public class PreguntaController {
 		}//end try
 		
 	}//end createPregunta()
+	
+	/**
+	 * Elimina una pregunta
+	 * @param id 			Id de Pregunta
+	 * @return ExtData
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="delete.action", method=RequestMethod.POST)
+	public ExtData deletePregunta(
+			@RequestParam(value="id") Integer id) throws ServletException {
+		
+		ExtData response = new ExtData();
+		String method = "deletePregunta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			Pregunta question = preguntaService.findById(id);
+			
+			if(question != null) {
+				preguntaService.delete(question);
+			} else {
+				String msg = "Pregunta(" + id + ") no fue localizada.";
+				logger.error(method + ": " + msg);
+				return ExtUtils.returnException(response, method, msg);
+			}//end if
+			
+			return ExtUtils.loadResponse(response);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end deletePregunta()
 	
 }

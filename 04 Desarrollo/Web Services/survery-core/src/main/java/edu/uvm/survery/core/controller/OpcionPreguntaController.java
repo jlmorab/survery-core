@@ -100,6 +100,35 @@ public class OpcionPreguntaController {
 	}//end viewOpcionPregunta()
 	
 	/**
+	 * Determina si existe una opción de pregunta
+	 * @param question 		Id de Pregunta
+	 * @param name 			Nombre de OpcionPregunta
+	 * @return ExtData 		data: exist 	|> True|False
+	 * 							  model 	|> Modelo de OpcionPregunta
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="exist.action", method=RequestMethod.GET)
+	public ExtData existOpcionPregunta(
+			@RequestParam(value="question") Integer question, 
+			@RequestParam(value="name") String name) throws ServletException {
+		
+		ExtData response = new ExtData(); Map<String, Object> data = new HashMap<String, Object>();
+		String method = "existOpcionPregunta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			OpcionPregunta option = opcionPreguntaService.findByDefinition(question, name);
+			data.put("exist", option != null ? true : false);
+			data.put("model", option);
+			
+			return ExtUtils.loadResponse(response, data);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end existOpcionPregunta()
+	
+	/**
 	 * Registra una opción de respuesta
 	 * @param question 		Id de pregunta
 	 * @param name 			Nombre de opción de pregunta
@@ -125,4 +154,36 @@ public class OpcionPreguntaController {
 		}//end try
 		
 	}//end createOpcionPregunta()
+	
+	/**
+	 * Elimina una opción de pregunta
+	 * @param id 		Id de OpcionPregunta
+	 * @return ExtData
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="delete.action", method=RequestMethod.POST)
+	public ExtData deleteOpcionPregunta(
+			@RequestParam(value="id") Integer id) throws ServletException {
+		
+		ExtData response = new ExtData();
+		String method = "deleteOpcionPregunta";
+		logger.trace("Controller > " + method);
+		
+		try {
+			OpcionPregunta option = opcionPreguntaService.findById(id);
+			
+			if(option != null) {
+				opcionPreguntaService.delete(option);
+			} else {
+				String msg = "Opcion de Pregunta(" + id + ") no fue localizada.";
+				logger.error(method + ": " + msg);
+				return ExtUtils.returnException(response, method, msg);
+			}//end if
+			
+			return ExtUtils.loadResponse(response);
+		} catch(Exception ex) {
+			return ExtUtils.returnException(response, method, ex.getMessage());
+		}//end try
+		
+	}//end deleteOpcionPregunta()
 }
