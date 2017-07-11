@@ -1,0 +1,201 @@
+/* .x-panel-header{ */
+/* 	text-align:left; */
+/* 	font-size:10 px; */
+/* 	color:#690039; */
+/* } */
+/* .x-panel-header2{ */
+/* 	text-align:right; */
+/* 	font-size:10 px; */
+/* 	color:#FFFFFF; */
+/* 	margin: 5 5 5 5px; */
+/* 	font-weight:bold; */
+/* 	line-height:20px; */
+/* } */
+/* .x-tab-top-active{ */
+/* 	background-image: none; */
+/*    	background-color: #A51C30; */
+/* } */
+/* .x-tab-bar-strip-default, .x-tab-bar-strip-default-plain{ */
+/* 	background-color: #A51C30; */
+/* } */
+/* .x-grid-row-selected .x-grid-cell, .x-grid-row-selected .x-grid-rowwrap-div{ */
+/* 	background-color: #A51C30!important; */
+/* } */
+/* .x-grid-row .x-grid-cell-special{ */
+/*     background-color: #6A747C; */
+/*     background-image: none; */
+/* } */
+/* .x-tab-default-top{ */
+/*  	background-image: none; */
+/* } */
+/* .x-tab-default-top-active { */
+/*     border-bottom-color: #A51C30!important; */
+/* } */
+/* .x-btn-over{ */
+/* 	  background-color: #6A747C; */
+/* } */
+/* .x-boundlist-item-over{ */
+/* 	background-color: #6A747C; */
+/* } */
+
+/* #slideshow {		 */
+/* 	top:0; */
+/* 	left:0; */
+/* 	width:100%; */
+/* 	height:100%; */
+/* 	z-index:-1;  */
+/* } */
+/* .btn-Buscar{ */
+/*     background-image: url("../images/icons/consulta.png") !important; */
+/* } */
+/* .cls-LGMAC { */
+/* 	float: right; */
+/* 	padding-top: 5px; */
+/* 	padding-left: 10px; */
+/* 	position: relative; */
+/* 	border-color: blue; */
+/* 	border-bottom-style: double; */
+/* } */
+/* .cls-Logout{ */
+/* 	float: left; */
+/* 	padding-top: 5px; */
+/* 	padding-left: 10px; */
+/* 	width:35px; */
+/* 	height:35px; */
+/* 	position: relative; */
+/* 	border-bottom-style: double; */
+/* } */
+.btn-Limpiar{
+    background-image: url("../images/icons/minus.png") !important;
+}
+
+.btn-Nuevo {
+    background-image: url("../images/icons/document-add.png") !important;
+}
+.btn-Nuevopf {
+    background-image: url("../images/icons/note_add.png") !important;
+}
+.btn-Editarpf {
+    background-image: url("../images/icons/note_edit.png") !important;
+}
+.btn-Eliminarpf {
+    background-image: url("../images/icons/note_delete.png") !important;
+}
+.btn-Configurarpf {
+    background-image: url("../images/icons/configure.png") !important;
+}
+.btn-Downloadpf {
+	background-image: url("../images/icons/download_manager.png") !important;
+}
+.upload-icon {
+    background-image: url("../images/icons/Upload-01.png") !important;
+}
+.btn-Delete {
+    background-image: url("../images/icons/document-delete.png") !important;
+}
+.cls-portafolio{
+    background-image: url("../images/icons/Briefcase.png") !important;
+}
+.cls-portafolioMN{
+    background-image: url("../images/icons/stock_briefcase.png") !important;
+}
+.cls-familia{
+    background-image: url("../images/icons/shape_group.png") !important;
+}
+.cls-Periodo{
+    background-image: url("../images/icons/preferences-system-time.png") !important;
+}
+.cls-Security{
+    background-image: url("../images/icons/decrypted.png") !important;
+}
+.cls-Report{
+    background-image: url("../images/icons/Report.png") !important;
+}
+.cls-Catalog{
+    background-image: url("../images/icons/folder_home2.png") !important;
+}
+.cls-Contrat{
+    background-image: url("../images/icons/editcopy.png") !important;
+}
+.cls-ContratDocument{
+    background-image: url("../images/icons/stock_certificate.png") !important;
+}
+.cls-log{
+    background-image: url("../images/icons/session-logout.png") !important;
+}
+.cls-MenuHome{
+    background-image: url("../images/icons/kwikdisk.png") !important;
+}
+.cls-ArrowMenu{
+    background-image: url("../images/icons/miscellaneous.png") !important;
+}
+.cls-adept_update{
+    background-image: url("../images/icons/adept_update.png") !important;
+}
+.cls-book_previous{
+    background-image: url("../images/icons/book_previous.png") !important;
+}
+.ui-icon-pdf{
+	background-image: url('../images/icons/Save.png')!important;
+	background-size: 18.5px 18.5px;
+} 
+.ui-icon-real-pdf{
+	background-image: url('../images/icons/file_extension_pdf.png')!important;
+	background-size: 18.5px 18.5px;
+}
+.ui-icon-real-excel{
+	background-image: url('../images/icons/doc_excel_97_2003.png')!important;
+	background-size: 18.5px 18.5px;
+}
+.ui-icon-zoom{
+	background-image: url('../images/icons/consulta.png')!important;
+	background-size: 15px 15px;
+}
+
+.mainPageReports .x-panel-header{
+    background: white;
+}
+.logutApp{
+	text-decoration:none;
+    color:black;
+    padding: 7px 7px;
+    font-size:10 px;
+    border: 1px solid #69737C;
+    border-width: 0px 1px 1px 0px;
+}
+/* .bienvenidaInf{ */
+/* 	background-color: #939598; */
+/* 	width: 100%; */
+/* 	height: 100% */
+/* } */
+/* .purple-cell{ */
+/* 	background-color: #6A003A; */
+/*     color: White; */
+/*     font-weight: bold; */
+/*     height: 20px; */
+/* 	border-spacing: 30pt 10pt; */
+/* } */
+/* .gray-cell{ */
+/* 	background-color: #6A747C; */
+/*     color: White; */
+/*     font-weight: bold; */
+/*     height: 20px; */
+/* } */
+
+/* .separator-cell { */
+/*     height: 5px; */
+/* } */
+/* .bienvenidaInfTbi{ */
+		
+/* } */
+/* .bienvenidaInfTbi img{ */
+/* 	width: 450px; */
+/* 	height: 250px; */
+/* 	margin: 0 auto; */
+/* } */
+
+/* .bienvenidaInfTbi2 img{ */
+/* 	width: 600px; */
+/* 	height: 300px; */
+/* 	margin: 0 auto; */
+/* } */

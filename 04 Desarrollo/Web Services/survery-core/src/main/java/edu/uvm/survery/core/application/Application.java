@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @RestController
 @SpringBootApplication
@@ -23,10 +24,14 @@ public class Application extends SpringBootServletInitializer{
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
 	}
-	
-	@RequestMapping("/")
-	String init() {
-		return "Inicio de aplicación";
-	}
-	
+
+	@Bean
+    public InternalResourceViewResolver viewResolver()
+    {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
 }

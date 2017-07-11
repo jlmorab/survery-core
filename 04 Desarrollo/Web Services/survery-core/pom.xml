@@ -32,6 +32,11 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		
+		<dependency>
 	        <groupId>mysql</groupId>
 	        <artifactId>mysql-connector-java</artifactId>
 	    </dependency>
@@ -61,6 +66,24 @@
 	        <groupId>org.hibernate</groupId>
 	        <artifactId>hibernate-entitymanager</artifactId>
 	    </dependency>
+	    
+	    <!-- View Dependencies -->
+		
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 
